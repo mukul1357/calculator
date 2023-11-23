@@ -33,4 +33,13 @@ public class MainTest {
         int answer = Main.gcd(a, b);
         Assert.assertEquals(answer, expectedAnswer);
     }
+
+    @Test
+    public void lcm() {
+        int expectedAnswer = 30;
+        int a = 6;
+        int b = 15;
+        int answer = Main.lcm(a, b);
+        Assert.assertEquals(answer, expectedAnswer);
+    }
 }
