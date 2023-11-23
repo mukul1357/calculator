@@ -8,20 +8,23 @@ public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
     public static void main(String[] args){
         Scanner reader = new Scanner(System.in);
+        logger.info("A fundamental calculator for exponential, nCr and Greatest Common Divisor");
         System.out.println("Welcome to the calculator app");
-        System.out.println("Please choose the operation you want to perform");
-        System.out.println("1. Power");
-        System.out.println("2. nCr");
-        System.out.println("3: GCD");
-        System.out.println("99: Exit");
         int choice = 0;
-        while(choice != 99){
+        while(choice != 5){
+            System.out.println("Please choose the operation you want to perform");
+            System.out.println("1. Power");
+            System.out.println("2. nCr");
+            System.out.println("3: GCD");
+            System.out.println("4: LCM");
+            System.out.println("5: Exit");
             choice = reader.nextInt();
             if(choice == 1) {
                 System.out.println("You have chosen power function");
                 System.out.println("Please enter base and exponent");
                 int base = reader.nextInt();
                 int exp = reader.nextInt();
+                logger.info("Now executing power function");
                 int answer = power(base, exp);
                 System.out.println(base + " raise to the power " + exp + " is: ");
                 System.out.println(answer);
@@ -32,6 +35,7 @@ public class Main {
                 int n = reader.nextInt();
                 int r = reader.nextInt();
                 if(n >= r){
+                    logger.info("Now calculating nCr");
                     int answer = nCr(n, r);
                     System.out.println("nCr for n = " + n + " and r = " + r + " is:");
                     System.out.println(answer);
@@ -45,40 +49,37 @@ public class Main {
                 System.out.println("Please enter the two number");
                 int a = reader.nextInt();
                 int b = reader.nextInt();
+                logger.info("Now calculating gcd");
                 System.out.println("GCD of " + a + " and " + b);
                 System.out.println(gcd(a, b));
             }
             else if(choice == 4){
-
+                System.out.println("You have chosen LCM function");
+                System.out.println("Please enter the two numbers");
+                int a = reader.nextInt();
+                int b = reader.nextInt();
+                logger.info("Now calculating lcm");
+                System.out.println("LCM of " + a + " and " + b);
+                System.out.println(lcm(a, b));
             }
         }
     }
 
     public static int power(int base, int exp){
-//        System.out.println("Enter base: ");
-//        int base = reader.nextInt();
-//        System.out.println("Enter power");
-//        int exp = reader.nextInt();
         int initialBase = base;
         int initalExp = exp;
         int answer = 1;
-        while(exp > 0){
-            if((exp & 1) == 1){
+        while(exp > 0) {
+            if ((exp & 1) == 1) {
                 answer *= base;
             }
             base *= base;
             exp >>= 1;
         }
-//        System.out.println(initialBase + " raise to the power " + initalExp + " is: ");
-//        System.out.println(answer);
         return answer;
     }
 
     public static int nCr(int n, int r){
-//        if(r > n){
-//            System.out.println("r cannot be greater than n");
-//            return -1;
-//        }
         int[][] dp = new int[n + 1][r + 1];
 
         for (int i = 0; i <= n; i++) {
@@ -90,9 +91,20 @@ public class Main {
                 }
             }
         }
-//        System.out.println("nCr for n = " + n + " and r = " + r + " is:");
-//        System.out.println(dp[n][r]);
         return dp[n][r];
+    }
+
+    public static int lcm(int num1, int num2) {
+        // Calculate the product of the numbers
+        int product = num1 * num2;
+
+        // Calculate the GCD using Euclidean algorithm
+        int gcd = gcd(num1, num2);
+
+        // Calculate LCM using the formula LCM(a, b) = (a * b) / GCD(a, b)
+        int lcm = product / gcd;
+
+        return lcm;
     }
 
     public static int gcd(int a, int b){
